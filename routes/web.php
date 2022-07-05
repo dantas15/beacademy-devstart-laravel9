@@ -3,8 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\{
     UserController,
-
+    ViaCepController,
 };
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,9 +21,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::name('users.')->controller(UserController::class)->group(function () {
-    Route::get('/users', 'index')->name('index');
-    Route::get('/users/{id}', 'show')->name('show');
+Route::prefix('users')->name('users.')->controller(UserController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/{id}', 'show')->name('show');
 });
 
-
+Route::prefix('viacep')->name('viacep.')->controller(ViaCepController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::post('/', 'index')->name('index.post');
+    Route::get('/{cep}', 'show')->name('show');
+});
